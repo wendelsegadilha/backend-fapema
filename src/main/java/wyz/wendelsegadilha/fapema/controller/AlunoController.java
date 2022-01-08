@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,13 +27,13 @@ public class AlunoController {
 	}
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<?> buscarPorId(@PathVariable Integer id) {
+	public ResponseEntity<Aluno> buscarPorId(@PathVariable Integer id) {
 		Aluno aluno = service.buscarPorId(id);
 		return ResponseEntity.ok().body(aluno);
 	}
 	
 	@GetMapping
-	public ResponseEntity<?> bucarTodos() {
+	public ResponseEntity<List<Aluno>> bucarTodos() {
 		List<Aluno> alunos = service.buscarTodos();
 		return ResponseEntity.ok().body(alunos);
 	}
@@ -43,6 +44,13 @@ public class AlunoController {
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 					.path("/{id}").buildAndExpand(aluno.getId()).toUri();
 		return ResponseEntity.created(uri).build();
+	}
+	
+	@PutMapping(value = "/{id}")
+	public ResponseEntity<Void> atualizar(@RequestBody Aluno aluno, @PathVariable Integer id) {
+		aluno.setId(id);
+		service.atualizar(aluno);
+		return ResponseEntity.noContent().build();
 	}
 
 }

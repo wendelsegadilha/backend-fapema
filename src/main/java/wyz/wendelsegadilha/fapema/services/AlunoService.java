@@ -32,4 +32,9 @@ public class AlunoService {
 		return repository.save(aluno);
 	}
 
+	public void atualizar(Aluno aluno) {
+		buscarPorId(aluno.getId());
+		repository.save(aluno);
+	}
+
 }
