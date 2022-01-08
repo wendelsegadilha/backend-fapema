@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import wyz.wendelsegadilha.fapema.domain.Aluno;
 import wyz.wendelsegadilha.fapema.repositories.AlunoRepository;
+import wyz.wendelsegadilha.fapema.services.exceptions.AlunoNotFoundException;
 
 @Service
 public class AlunoService {
@@ -19,7 +20,7 @@ public class AlunoService {
 	
 	public Aluno buscarPorId(Integer id) {
 		Optional<Aluno> aluno = repository.findById(id);
-		return aluno.orElse(null);
+		return aluno.orElseThrow(() -> new AlunoNotFoundException("Aluno não encontrado! Id: " + id + ", Tipo " + Aluno.class.getName()));
 	}
 	
 	public List<Aluno> buscarTodos() {
