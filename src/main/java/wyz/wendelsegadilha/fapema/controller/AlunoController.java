@@ -1,5 +1,7 @@
 package wyz.wendelsegadilha.fapema.controller;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +25,12 @@ public class AlunoController {
 	public ResponseEntity<?> buscarPorId(@PathVariable Integer id) {
 		Aluno aluno = service.buscarPorId(id);
 		return ResponseEntity.ok().body(aluno);
+	}
+	
+	@GetMapping
+	public ResponseEntity<?> bucarTodos() {
+		List<Aluno> alunos = service.buscarTodos();
+		return ResponseEntity.ok().body(alunos);
 	}
 
 }

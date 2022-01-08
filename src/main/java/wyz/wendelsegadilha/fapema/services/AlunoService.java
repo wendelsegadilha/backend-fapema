@@ -1,5 +1,6 @@
 package wyz.wendelsegadilha.fapema.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -19,6 +20,10 @@ public class AlunoService {
 	public Aluno buscarPorId(Integer id) {
 		Optional<Aluno> aluno = repository.findById(id);
 		return aluno.orElse(null);
+	}
+	
+	public List<Aluno> buscarTodos() {
+		return repository.findAll();
 	}
 
 }
