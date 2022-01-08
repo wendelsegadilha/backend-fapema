@@ -27,4 +27,9 @@ public class AlunoService {
 		return repository.findAll();
 	}
 
+	public Aluno salvar(Aluno aluno) {
+		aluno.setId(null);
+		return repository.save(aluno);
+	}
+
 }
