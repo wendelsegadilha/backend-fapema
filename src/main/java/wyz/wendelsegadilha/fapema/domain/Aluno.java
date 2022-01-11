@@ -20,16 +20,18 @@ public class Aluno implements Serializable{
 	private String nome;
 	private String cpf;
 	private String matricula;
+	private String imagem;
 	
 	public Aluno() {
 	}
 
-	public Aluno(Integer id, String nome, String cpf, String matricula) {
+	public Aluno(Integer id, String nome, String cpf, String matricula, String imagem) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.cpf = cpf;
 		this.matricula = matricula;
+		this.imagem = imagem;
 	}
 
 	public Integer getId() {
@@ -63,6 +65,15 @@ public class Aluno implements Serializable{
 	public void setMatricula(String matricula) {
 		this.matricula = matricula;
 	}
+	
+	public String getImagem() {
+		return imagem;
+	}
+
+	public void setImagem(String imagem) {
+		this.imagem = imagem;
+	}
+
 
 	@Override
 	public int hashCode() {
