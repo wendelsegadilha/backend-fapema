@@ -3,6 +3,8 @@ package wyz.wendelsegadilha.fapema.controller;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +30,7 @@ public class AlunoController {
 	}
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Aluno> buscarPorId(@PathVariable Integer id) {
+	public ResponseEntity<Aluno> buscarPorId(@Valid @PathVariable Integer id) {
 		Aluno aluno = service.buscarPorId(id);
 		return ResponseEntity.ok().body(aluno);
 	}

@@ -22,7 +22,7 @@ import wyz.wendelsegadilha.fapema.services.AlunoService;
 import wyz.wendelsegadilha.fapema.services.ArmazenamentoArquivoService;
 
 @RestController
-@RequestMapping("/uploadImagem")
+@RequestMapping("/imagem")
 public class UploadImageController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(UploadImageController.class);
@@ -36,7 +36,7 @@ public class UploadImageController {
 		this.alunoService = alunoService;
 	}
 
-	@PostMapping("/{id}")
+	@PostMapping("upload/{id}")
 	public ResponseEntity<Aluno> uploadArquivo(@PathVariable("id") Integer id,
 			@RequestParam("arquivo") MultipartFile arquivo) {
 
@@ -47,7 +47,7 @@ public class UploadImageController {
 		if (aluno != null) {
 			nomeArquivo = armazenamentoArquivoService.salvarArquivo(arquivo);
 
-			UridownloadArquivo = ServletUriComponentsBuilder.fromCurrentContextPath().path("/arquivos/downloadImagem/")
+			UridownloadArquivo = ServletUriComponentsBuilder.fromCurrentContextPath().path("/imagem/download/")
 					.path(nomeArquivo).toUriString();
 			aluno.setImagem(UridownloadArquivo);
 			alunoService.atualizar(aluno);
@@ -55,7 +55,7 @@ public class UploadImageController {
 		return ResponseEntity.ok().body(aluno);
 	}
 	
-	@GetMapping("/downloadImagem/{nomeArquivo:.+}")
+	@GetMapping("/download/{nomeArquivo:.+}")
 	public ResponseEntity<Resource> downloadArquivo(@PathVariable String nomeArquivo, HttpServletRequest request) {
 		
 		Resource recurso = armazenamentoArquivoService.carregarArquivoComoRecurso(nomeArquivo);
