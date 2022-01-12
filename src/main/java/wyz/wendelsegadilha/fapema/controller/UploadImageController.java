@@ -22,21 +22,21 @@ import wyz.wendelsegadilha.fapema.services.AlunoService;
 import wyz.wendelsegadilha.fapema.services.ArmazenamentoArquivoService;
 
 @RestController
-@RequestMapping("/arquivos")
-public class ArquivoController {
+@RequestMapping("/uploadImagem")
+public class UploadImageController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(ArquivoController.class);
+	private static final Logger logger = LoggerFactory.getLogger(UploadImageController.class);
 	
 	private final ArmazenamentoArquivoService armazenamentoArquivoService;
 	private final AlunoService alunoService;
 
-	public ArquivoController(ArmazenamentoArquivoService armazenamentoArquivoService, AlunoService alunoService) {
+	public UploadImageController(ArmazenamentoArquivoService armazenamentoArquivoService, AlunoService alunoService) {
 		super();
 		this.armazenamentoArquivoService = armazenamentoArquivoService;
 		this.alunoService = alunoService;
 	}
 
-	@PostMapping("/uploadArquivo/{id}")
+	@PostMapping("/{id}")
 	public ResponseEntity<Aluno> uploadArquivo(@PathVariable("id") Integer id,
 			@RequestParam("arquivo") MultipartFile arquivo) {
 
@@ -47,7 +47,7 @@ public class ArquivoController {
 		if (aluno != null) {
 			nomeArquivo = armazenamentoArquivoService.salvarArquivo(arquivo);
 
-			UridownloadArquivo = ServletUriComponentsBuilder.fromCurrentContextPath().path("/arquivos/downloadArquivo/")
+			UridownloadArquivo = ServletUriComponentsBuilder.fromCurrentContextPath().path("/arquivos/downloadImagem/")
 					.path(nomeArquivo).toUriString();
 			aluno.setImagem(UridownloadArquivo);
 			alunoService.atualizar(aluno);
@@ -55,7 +55,7 @@ public class ArquivoController {
 		return ResponseEntity.ok().body(aluno);
 	}
 	
-	@GetMapping("/downloadArquivo/{nomeArquivo:.+}")
+	@GetMapping("/downloadImagem/{nomeArquivo:.+}")
 	public ResponseEntity<Resource> downloadArquivo(@PathVariable String nomeArquivo, HttpServletRequest request) {
 		
 		Resource recurso = armazenamentoArquivoService.carregarArquivoComoRecurso(nomeArquivo);
