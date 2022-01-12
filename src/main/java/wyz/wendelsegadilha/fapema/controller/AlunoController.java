@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import wyz.wendelsegadilha.fapema.domain.Aluno;
+import wyz.wendelsegadilha.fapema.domain.dto.AlunoDTO;
 import wyz.wendelsegadilha.fapema.services.AlunoService;
 
 @RestController
@@ -36,13 +37,15 @@ public class AlunoController {
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<Aluno>> bucarTodos() {
-		List<Aluno> alunos = service.buscarTodos();
+	public ResponseEntity<List<AlunoDTO>> bucarTodos() {
+		List<AlunoDTO> alunos = service.buscarTodos();
 		return ResponseEntity.ok().body(alunos);
 	}
 	
 	@PostMapping
-	public ResponseEntity<Void> salvar(@RequestBody Aluno aluno) {
+	public ResponseEntity<Void> salvar(@Valid @RequestBody AlunoDTO dto) {
+		
+		Aluno aluno = service.fromAluno(dto);
 		aluno = service.salvar(aluno);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 					.path("/{id}").buildAndExpand(aluno.getId()).toUri();
@@ -50,7 +53,9 @@ public class AlunoController {
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Void> atualizar(@RequestBody Aluno aluno, @PathVariable Integer id) {
+	public ResponseEntity<Void> atualizar(@Valid @RequestBody AlunoDTO dto, @PathVariable Integer id) {
+		
+		Aluno aluno = service.fromAluno(dto);
 		aluno.setId(id);
 		service.atualizar(aluno);
 		return ResponseEntity.noContent().build();
