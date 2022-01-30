@@ -8,6 +8,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +22,7 @@ import wyz.wendelsegadilha.fapema.domain.Aluno;
 import wyz.wendelsegadilha.fapema.services.AlunoService;
 import wyz.wendelsegadilha.fapema.services.ArmazenamentoArquivoService;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/imagem")
 public class UploadImageController {
