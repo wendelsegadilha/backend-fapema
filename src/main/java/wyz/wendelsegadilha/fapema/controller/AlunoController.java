@@ -19,6 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import wyz.wendelsegadilha.fapema.domain.Aluno;
 import wyz.wendelsegadilha.fapema.domain.dto.AlunoDTO;
+import wyz.wendelsegadilha.fapema.domain.dto.AlunoUpdateDTO;
 import wyz.wendelsegadilha.fapema.services.AlunoService;
 
 @CrossOrigin
@@ -55,7 +56,7 @@ public class AlunoController {
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Void> atualizar(@Valid @RequestBody AlunoDTO dto, @PathVariable Integer id) {
+	public ResponseEntity<Void> atualizar(@Valid @RequestBody AlunoUpdateDTO dto, @PathVariable Integer id) {
 		
 		Aluno aluno = service.fromAluno(dto);
 		aluno.setId(id);

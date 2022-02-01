@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import wyz.wendelsegadilha.fapema.domain.Aluno;
 import wyz.wendelsegadilha.fapema.domain.dto.AlunoDTO;
+import wyz.wendelsegadilha.fapema.domain.dto.AlunoUpdateDTO;
 import wyz.wendelsegadilha.fapema.repositories.AlunoRepository;
 import wyz.wendelsegadilha.fapema.services.exceptions.AlunoNotFoundException;
 
@@ -42,7 +43,8 @@ public class AlunoService {
 	}
 
 	public void atualizar(Aluno aluno) {
-		buscarPorId(aluno.getId());
+		var obj = buscarPorId(aluno.getId());
+		aluno.setImagem(obj.getImagem());
 		repository.save(aluno);
 	}
 
@@ -68,6 +70,15 @@ public class AlunoService {
 		aluno.setCpf(dto.getCpf());
 		aluno.setMatricula(dto.getMatricula());
 		aluno.setImagem(dto.getImagem());
+		return aluno;
+	}
+	
+	public Aluno fromAluno(AlunoUpdateDTO dto) {
+		Aluno aluno = new Aluno();
+		aluno.setId(dto.getId());
+		aluno.setNome(dto.getNome());
+		aluno.setCpf(dto.getCpf());
+		aluno.setMatricula(dto.getMatricula());
 		return aluno;
 	}
 
